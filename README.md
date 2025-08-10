@@ -1,7 +1,7 @@
 # 🖼️ Playing with Images using React (useState)
 
 A simple **image editor application** built with **React** that allows you to:
-- Upload & change images  
+- Change images  
 - Apply different background colors  
 - Rotate the image  
 - Resize with a slider  
@@ -27,5 +27,5 @@ A simple **image editor application** built with **React** that allows you to:
 ## 🛠️ Technologies Used
 - **React.js** (Frontend)
 - **CSS3** (Styling)
-- **JavaScript (ES6+)**
+- **JavaScript**
 - **HTML5 Canvas API** (for download functionality)
