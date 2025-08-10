@@ -24,6 +24,47 @@ function Home() {
     //     setImage(newImage);
     // };
 
+
+    const downloadEditedImage = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const img = new Image();
+        img.crossOrigin = "anonymous"; // avoid CORS issues
+        img.src = image; // your selected image
+
+        img.onload = () => {
+            // Set canvas size (same as your preview size)
+            const size = 300; // adjust to match your preview dimensions
+            canvas.width = size;
+            canvas.height = size;
+
+            // Fill background color
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, size, size);
+
+            // Move to center for rotation
+            ctx.translate(size / 2, size / 2);
+            ctx.rotate(angle * Math.PI / 180);
+
+            // Scale image according to slider value
+            const scale = sliderValue / 100;
+            const imgWidth = img.width * scale;
+            const imgHeight = img.height * scale;
+
+            ctx.drawImage(img, -imgWidth / 2, -imgHeight / 2, imgWidth, imgHeight);
+
+            // Create download link
+            const link = document.createElement("a");
+            link.download = "edited-image.png";
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+        };
+    };
+
+
+
+
     return (
         <div className='app-container'>
             <h1>Playing with Images using <span className='header-highlight'>useState</span></h1>
@@ -44,7 +85,7 @@ function Home() {
             <div style={{
                 display: 'flex', justifyContent: 'center',
                 alignItems: 'center'
-                }}>
+            }}>
                 <div style={{ marginRight: '30px' }}>
                     <div className='slider-container'>
                         <input type='range' min='0' max='100' className='slider' onClick={(e) => { setSliderVlue(e.target.value) }} />
@@ -53,16 +94,17 @@ function Home() {
                     <div className='angle-container'>
                         <img
                             src={rotate1}
-                            alt='Rotate Left'
-                            className='rotate-icon rotate-icon-left'
-                            onClick={() => setAngle(angle - 90)}
-                        />
-                        <img
-                            src={rotate2}
                             alt='Rotate Right'
                             className='rotate-icon rotate-icon-right'
                             onClick={() => setAngle(angle + 90)}
                         />
+                        <img
+                            src={rotate2}
+                            alt='Rotate Left'
+                            className='rotate-icon rotate-icon-left'
+                            onClick={() => setAngle(angle - 90)}
+                        />
+                        
                     </div>
                 </div>
                 <div>
@@ -71,10 +113,14 @@ function Home() {
                         type='text'
                         style={{ borderRight: 'None', fontSize: '18px', width: '150px', color: '#4d4d4d' }}
                         value={inputColor}
-                        onChange={(e) => setInputColor(e.target.value)}                                                                                                                                                                                                                                             
+                        onChange={(e) => setInputColor(e.target.value)}
                     />
                     <button style={{ fontSize: '18px' }} onClick={() => setBgColor(inputColor)}>Ok</button>
                 </div>
+                <button onClick={downloadEditedImage} className='DownloadImg'>
+                    Download Image
+                </button>
+
             </div>
             <div className='image-picker'>
 
