@@ -1,7 +1,7 @@
 import React, { use } from 'react'
 import './Home.css'
 import ImageBtn from '../../Component/ImageBtn.jsx';
-import BgColorPicker from '../../Component/bgColorPicker.jsx';
+import BgColorPicker from '../../Component/BgColorPicker.jsx';
 import { useState } from 'react'
 import catImg from '../../assets/catImg.jpg';
 import img2 from '../../assets/img2.webp';
